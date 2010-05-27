@@ -5,7 +5,7 @@ setup(
     version='1.0a1.dev1',
     description='Django middleware and view decorator to detect phones and small-screen devices',
     long_description = open("readme.markdown").read(),
-    author='metamoof',
+    author='metamoof, Chris Drackett',
     url = "http://code.google.com/p/minidetector/",
     packages = [
         "minidetector",

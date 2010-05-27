@@ -26,3 +26,10 @@ If you only have certain views that need the distinction, you can choose not to 
 	def my_mobile_view(request):
 		if request.mobile:
 			#do something with mobile
+
+iPad as a mobile browser
+========================
+
+By default the iPad is not treated as a mobile browser. If you want to reverse this, add the following to your settings.py:
+
+	IPAD_IS_MOBILE = False
