@@ -1,0 +1,2 @@
+include minidetector/*.txt
+include minidetector/tests/*.txt
