@@ -2,7 +2,7 @@ from distutils.core import setup
  
 setup(
     name='minidetector',
-    version='1.0a1.dev1',
+    version='1.1',
     description='Django middleware and view decorator to detect phones and small-screen devices',
     long_description = open("readme.markdown").read(),
     author='metamoof, Chris Drackett',
