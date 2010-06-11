@@ -27,9 +27,37 @@ If you only have certain views that need the distinction, you can choose not to 
 		if request.mobile:
 			#do something with mobile
 
-iPad as a mobile browser
-========================
+"Special" Devices
+=================
+
+minidetector also adds some extra info for popular devices to the request object.
+
+Extra Info
+----------
+
+for the iPad:
+
+	request.browser_is_ipad = True
+	request.mobile_device = 'ipad'
+
+for the iPhone or iPod touch:
+
+	request.browser_is_iphone = True
+	request.mobile_device = 'iphone'
+
+and for Android:
+
+	request.browser_is_android = True
+	request.mobile_device = 'android'
+
+Override mobile treatment
+-------------------------
 
 By default the iPad is not treated as a mobile browser. If you want to reverse this, add the following to your settings.py:
 
-	IPAD_IS_MOBILE = False
+	IPAD_IS_MOBILE = True
+
+You can do the reverse for iphone and android (i.e. having them treat your site as non-mobile.)
+
+	IPHONE_IS_MOBILE = False
+	ANDROID_IS_MOBILE = False

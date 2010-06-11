@@ -30,10 +30,26 @@ class Middleware(object):
             # Also, Caching didn't help much, with real-world caches.
             s = request.META["HTTP_USER_AGENT"].lower()
             
-            # special check for ipad
+            # some special checks for 'important' devices
             if 'ipad' in s:
+                request.browser_is_ipad = True
+                request.mobile_device = 'ipad'
+                
+                # toggle setting for deciding if ipad is mobile or not
                 request.mobile = getattr(settings, 'IPAD_IS_MOBILE', False)
                 return None
+            if 'iphone' in s or 'ipod' in s:
+                request.browser_is_iphone = True
+                request.mobile_device = 'iphone'
+                
+                # toggle setting for deciding if iphone is mobile or not
+                request.mobile = getattr(settings, 'IPHONE_IS_MOBILE', True)
+            if 'android' in s:
+                request.browser_is_android = True
+                request.mobile_device = 'android'
+                
+                # toggle setting for deciding if iphone is mobile or not
+                request.mobile = getattr(settings, 'ANDROID_IS_MOBILE', True)
             
             for ua in search_strings:
                 if ua in s:
