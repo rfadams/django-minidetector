@@ -35,6 +35,10 @@ minidetector also adds some extra info for popular devices to the request object
 Extra Info
 ----------
 
+for webkit:
+
+	request.browser_is_webkit = True
+
 for the iPad:
 
 	request.browser_is_ipad = True
