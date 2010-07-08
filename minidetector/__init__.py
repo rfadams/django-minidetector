@@ -30,6 +30,9 @@ class Middleware(object):
             # Also, Caching didn't help much, with real-world caches.
             s = request.META["HTTP_USER_AGENT"].lower()
             
+            if 'applewebkit' in s:
+                request.browser_is_webkit = True
+            
             # some special checks for 'important' devices
             if 'ipad' in s:
                 request.browser_is_ipad = True
