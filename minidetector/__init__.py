@@ -68,7 +68,9 @@ class Middleware(object):
                     request.mobile = True
                     return None
         
-        # All non-mobile devices are wide
+        # desktop defaults
+        request.mobile = False
+        request.touch_device = False
         request.wide_device = True
         
         return None
