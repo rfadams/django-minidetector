@@ -51,6 +51,7 @@ class Middleware(object):
                 
                 request.mobile_device = 'iphone'
                 request.touch_device = True
+                request.wide_device = False
                 
                 # toggle setting for deciding if iphone is mobile or not
                 request.mobile = getattr(settings, 'IPHONE_IS_MOBILE', True)
@@ -59,6 +60,7 @@ class Middleware(object):
                 
                 request.mobile_device = 'android'
                 request.touch_device = True
+                request.wide_device = False
                 
                 # toggle setting for deciding if iphone is mobile or not
                 request.mobile = getattr(settings, 'ANDROID_IS_MOBILE', True)
