@@ -54,6 +54,10 @@ and for Android:
 	request.browser_is_android = True
 	request.mobile_device = 'android'
 
+I also send 'request.touch_device' as True for all webkit touch devices (iOS and android.)
+
+I also now send 'request.wide_device' as True for all 'wide' devices. Currently this covers all desktops and the ipad. I'll revisit this when other tablets (webOS or android) come out (if I can detect it.)
+
 Override mobile treatment
 -------------------------
 

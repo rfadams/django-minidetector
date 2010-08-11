@@ -21,6 +21,8 @@ class Middleware(object):
             if 'application/vnd.wap.xhtml+xml' in s:
                 # Then it's a wap browser
                 request.mobile = True
+                request.wap = True
+                
                 return None
         
         if request.META.has_key("HTTP_USER_AGENT"):
@@ -36,20 +38,27 @@ class Middleware(object):
             # some special checks for 'important' devices
             if 'ipad' in s:
                 request.browser_is_ipad = True
+                
                 request.mobile_device = 'ipad'
+                request.touch_device = True
+                request.wide_device = True
                 
                 # toggle setting for deciding if ipad is mobile or not
                 request.mobile = getattr(settings, 'IPAD_IS_MOBILE', False)
                 return None
             if 'iphone' in s or 'ipod' in s:
                 request.browser_is_iphone = True
+                
                 request.mobile_device = 'iphone'
+                request.touch_device = True
                 
                 # toggle setting for deciding if iphone is mobile or not
                 request.mobile = getattr(settings, 'IPHONE_IS_MOBILE', True)
             if 'android' in s:
                 request.browser_is_android = True
+                
                 request.mobile_device = 'android'
+                request.touch_device = True
                 
                 # toggle setting for deciding if iphone is mobile or not
                 request.mobile = getattr(settings, 'ANDROID_IS_MOBILE', True)
@@ -59,8 +68,9 @@ class Middleware(object):
                     request.mobile = True
                     return None
         
-        #Otherwise it's not a mobile
-        request.mobile = False
+        # All non-mobile devices are wide
+        request.wide_device = True
+        
         return None
 
 def detect_mobile(view):
