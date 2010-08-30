@@ -49,6 +49,10 @@ for the iPhone or iPod touch:
 	request.browser_is_iphone = True
 	request.mobile_device = 'iphone'
 
+for iOS in general:
+
+	request.browser_is_ios = True
+
 and for Android:
 
 	request.browser_is_android = True

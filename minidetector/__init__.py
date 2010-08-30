@@ -38,6 +38,7 @@ class Middleware(object):
             # some special checks for 'important' devices
             if 'ipad' in s:
                 request.browser_is_ipad = True
+                request.browser_is_ios = True
                 
                 request.mobile_device = 'ipad'
                 request.touch_device = True
@@ -48,6 +49,7 @@ class Middleware(object):
                 return None
             if 'iphone' in s or 'ipod' in s:
                 request.browser_is_iphone = True
+                request.browser_is_ios = True
                 
                 request.mobile_device = 'iphone'
                 request.touch_device = True
