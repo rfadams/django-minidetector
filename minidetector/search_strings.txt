@@ -52,6 +52,7 @@ wap2.
 plucker
 480x640
 sec
+fennec
 # The Google transcoder
 google wireless transcoder
 # These are games consoles that either have a small screen or display on a
