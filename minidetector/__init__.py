@@ -13,15 +13,17 @@ class Middleware(object):
             #Then it's running opera mini. 'Nuff said.
             #Reference from:
             # http://dev.opera.com/articles/view/opera-mini-request-headers/
-            request.mobile = True
+            
+            request.simple_device = True
+            
             return None
         
         if request.META.has_key("HTTP_ACCEPT"):
             s = request.META["HTTP_ACCEPT"].lower()
             if 'application/vnd.wap.xhtml+xml' in s:
                 # Then it's a wap browser
-                request.mobile = True
-                request.wap = True
+                
+                request.simple_device = True
                 
                 return None
         
@@ -30,49 +32,53 @@ class Middleware(object):
             # Experimented on my own machine, this was the most efficient
             # algorithm. Certainly more so than regexes.
             # Also, Caching didn't help much, with real-world caches.
+            
             s = request.META["HTTP_USER_AGENT"].lower()
             
             if 'applewebkit' in s:
-                request.browser_is_webkit = True
+                request.is_webkit = True
             
-            # some special checks for 'important' devices
             if 'ipad' in s:
-                request.browser_is_ipad = True
-                request.browser_is_ios = True
-                
-                request.mobile_device = 'ipad'
+                request.ios_device = True
                 request.touch_device = True
                 request.wide_device = True
                 
-                # toggle setting for deciding if ipad is mobile or not
-                request.mobile = getattr(settings, 'IPAD_IS_MOBILE', False)
                 return None
+            
             if 'iphone' in s or 'ipod' in s:
-                request.browser_is_iphone = True
-                request.browser_is_ios = True
-                
-                request.mobile_device = 'iphone'
+                request.ios_device = True
                 request.touch_device = True
                 request.wide_device = False
                 
-                # toggle setting for deciding if iphone is mobile or not
-                request.mobile = getattr(settings, 'IPHONE_IS_MOBILE', True)
+                return None
+            
             if 'android' in s:
-                request.browser_is_android = True
+                request.android_device = True
+                request.touch_device = True
+                request.wide_device = False # TODO add support for andriod tablets
                 
-                request.mobile_device = 'android'
+                return None
+            
+            if 'webos' in s:
+                request.webos_device = True
+                request.touch_device = True
+                request.wide_device = False # TODO add support for webOS tablets
+                
+                return None
+            
+            if 'windows phone' in s:
+                request.windows_phone_device = True
                 request.touch_device = True
                 request.wide_device = False
                 
-                # toggle setting for deciding if iphone is mobile or not
-                request.mobile = getattr(settings, 'ANDROID_IS_MOBILE', True)
+                return None
             
             for ua in search_strings:
                 if ua in s:
-                    request.mobile = True
+                    request.simple_device = True
                     return None
         
-        # desktop defaults
+        # defaults
         request.mobile = False
         request.touch_device = False
         request.wide_device = True
