@@ -14,7 +14,7 @@ class Middleware(object):
             #Reference from:
             # http://dev.opera.com/articles/view/opera-mini-request-headers/
             
-            request.simple_device = True
+            request.is_simple_device = True
             
             return None
         
@@ -23,7 +23,7 @@ class Middleware(object):
             if 'application/vnd.wap.xhtml+xml' in s:
                 # Then it's a wap browser
                 
-                request.simple_device = True
+                request.is_simple_device = True
                 
                 return None
         
@@ -39,49 +39,49 @@ class Middleware(object):
                 request.is_webkit = True
             
             if 'ipad' in s:
-                request.ios_device = True
-                request.touch_device = True
-                request.wide_device = True
+                request.is_ios_device = True
+                request.is_touch_device = True
+                request.is_wide_device = True
                 
                 return None
             
             if 'iphone' in s or 'ipod' in s:
-                request.ios_device = True
-                request.touch_device = True
-                request.wide_device = False
+                request.is_ios_device = True
+                request.is_touch_device = True
+                request.is_wide_device = False
                 
                 return None
             
             if 'android' in s:
-                request.android_device = True
-                request.touch_device = True
-                request.wide_device = False # TODO add support for andriod tablets
+                request.is_android_device = True
+                request.is_touch_device = True
+                request.is_wide_device = False # TODO add support for andriod tablets
                 
                 return None
             
             if 'webos' in s:
-                request.webos_device = True
-                request.touch_device = True
-                request.wide_device = False # TODO add support for webOS tablets
+                request.is_webos_device = True
+                request.is_touch_device = True
+                request.is_wide_device = False # TODO add support for webOS tablets
                 
                 return None
             
             if 'windows phone' in s:
-                request.windows_phone_device = True
-                request.touch_device = True
-                request.wide_device = False
+                request.is_windows_phone_device = True
+                request.is_touch_device = True
+                request.is_wide_device = False
                 
                 return None
             
             for ua in search_strings:
                 if ua in s:
-                    request.simple_device = True
+                    request.is_simple_device = True
                     return None
         
-        # defaults
-        request.mobile = False
-        request.touch_device = False
-        request.wide_device = True
+        # defaults (we assume this is a desktop)
+        request.is_simple_device = False
+        request.is_touch_device = False
+        request.is_wide_device = True
         
         return None
 

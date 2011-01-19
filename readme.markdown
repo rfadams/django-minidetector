@@ -8,31 +8,31 @@ The following is currently added to the request:
 Simple Device
 -------------
 
-	request.simple_device
+	request.is_simple_device
 
 True for all non-desktop devices (browsers) without "modern" CSS and JS support. This includes non "smart" phones and simpler browsers like those found on game consoles and the kindle.
 
 Touch Device
 ------------
 
-	request.touch_device
+	request.is_touch_device
 
 True for devices that use touch events.
 
 Wide Device
 -----------
 
-	request.wide_device
+	request.is_wide_device
 
 True for devices that are wider than a common mobile phone. This covers tablets and desktop browsers.
 
 Device Type
 -----------
 
-	request.ios_device
-	request.android_device
-	request.webos_device
-	request.windows_phone_device
+	request.is_ios_device
+	request.is_android_device
+	request.is_webos_device
+	request.is_windows_phone_device
 
 True if the device is part of the given platform.
 
