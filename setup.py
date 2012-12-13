@@ -19,5 +19,6 @@ setup(
         "Operating System :: OS Independent",
         "Programming Language :: Python",
         "Framework :: Django",
-    ]
+    ],
+    package_data={'minidetector': ['*.txt', 'minidetector/*.txt']}
 )
