@@ -9,6 +9,11 @@ class Middleware(object):
             depending on whether the request should be considered to come from a
             small-screen device such as a phone or a PDA"""
         
+        # defaults (we assume this is a desktop)
+        request.is_simple_device = False
+        request.is_touch_device = False
+        request.is_wide_device = True
+        
         if request.META.has_key("HTTP_X_OPERAMINI_FEATURES"):
             #Then it's running opera mini. 'Nuff said.
             #Reference from:
@@ -77,11 +82,6 @@ class Middleware(object):
                 if ua in s:
                     request.is_simple_device = True
                     return None
-        
-        # defaults (we assume this is a desktop)
-        request.is_simple_device = False
-        request.is_touch_device = False
-        request.is_wide_device = True
         
         return None
 
