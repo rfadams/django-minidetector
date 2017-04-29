@@ -1,6 +1,7 @@
 from django.conf import settings
 
 from minidetector.useragents import search_strings
+from django.utils.deprecation import MiddlewareMixin
 
 class Middleware(object):
     @staticmethod
@@ -13,8 +14,8 @@ class Middleware(object):
         request.is_simple_device = False
         request.is_touch_device = False
         request.is_wide_device = True
-        
-        if request.META.has_key("HTTP_X_OPERAMINI_FEATURES"):
+
+        if "HTTP_X_OPERAMINI_FEATURES" in request.META:
             #Then it's running opera mini. 'Nuff said.
             #Reference from:
             # http://dev.opera.com/articles/view/opera-mini-request-headers/
@@ -22,8 +23,8 @@ class Middleware(object):
             request.is_simple_device = True
             
             return None
-        
-        if request.META.has_key("HTTP_ACCEPT"):
+
+        if "HTTP_ACCEPT" in request.META:
             s = request.META["HTTP_ACCEPT"].lower()
             if 'application/vnd.wap.xhtml+xml' in s:
                 # Then it's a wap browser
@@ -31,8 +32,8 @@ class Middleware(object):
                 request.is_simple_device = True
                 
                 return None
-        
-        if request.META.has_key("HTTP_USER_AGENT"):
+
+        if "HTTP_USER_AGENT" in request.META:
             # This takes the most processing. Surprisingly enough, when I
             # Experimented on my own machine, this was the most efficient
             # algorithm. Certainly more so than regexes.
@@ -96,4 +97,7 @@ def detect_mobile(view):
     detected.__doc__ = "%s\n[Wrapped by detect_mobile which detects if the request is from a phone]" % view.__doc__
     return detected
 
-__all__ = ['Middleware', 'detect_mobile']
+class NewMiddleware(MiddlewareMixin, Middleware):
+    pass
+
+__all__ = ['NewMiddleware', 'Middleware', 'detect_mobile']
