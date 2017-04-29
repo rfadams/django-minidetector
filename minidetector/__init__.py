@@ -1,6 +1,7 @@
 from django.conf import settings
 
 from minidetector.useragents import search_strings
+from django.utils.deprecation import MiddlewareMixin
 
 class Middleware(object):
     @staticmethod
@@ -96,4 +97,7 @@ def detect_mobile(view):
     detected.__doc__ = "%s\n[Wrapped by detect_mobile which detects if the request is from a phone]" % view.__doc__
     return detected
 
-__all__ = ['Middleware', 'detect_mobile']
+class NewMiddleware(MiddlewareMixin, Middleware):
+    pass
+
+__all__ = ['NewMiddleware', 'Middleware', 'detect_mobile']
